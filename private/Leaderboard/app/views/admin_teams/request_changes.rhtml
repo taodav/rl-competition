@@ -1,0 +1,9 @@
+<% popup_form_for :admin_team, :url => admin_team_url(@admin_team.id), :html => { :method => 'put'} do |f| -%>
+
+<p>
+	<label for="changes">Changes:</label><br />
+	<%= text_area_tag 'changes'%>
+</p>
+
+<p><%= submit_tag 'Request changes' %> <%= link_to_function "Cancel", 'window.close()' %></p>
+<% end -%>

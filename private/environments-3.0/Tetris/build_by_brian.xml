@@ -1,0 +1,31 @@
+<project name="GeneralizedTetris" basedir="." >
+
+	<property name="baseLibraryDir" value="../.."/>
+	<property name="this.project.system.directory" value="${baseLibraryDir}/system"/>
+	<property name="project.name" value="${ant.project.name}"/>
+	<property name="this.project.product.directory" value="${baseLibraryDir}/products"/>
+	<import file="${this.project.system.directory}/common/ant/build-common.xml"/>
+
+	<property name="main.package.name" value="org.rlcommunity.environments.competition2009.Tetris/"/>
+	<property name="main.package.spec.version" value="1.0"/>
+	<property name="main.vendor.name" value="Brian Tanner"/>
+       
+        
+	<path id="project.extra.classpath">
+            <pathelement location="../../../public/system/libraries/rl-viz/AgentShell.jar"/>
+            <pathelement location="../../../public/system/libraries/rl-viz/libs/commons-codec-1.3.jar"/>
+            <pathelement location="../../../public/system/libraries/rl-viz/EnvironmentShell.jar"/>
+            <pathelement location="../../../public/system/libraries/rl-viz/RLVizApp.jar"/>
+            <pathelement location="../../../public/system/libraries/rl-viz/RLVizLib.jar"/>
+        </path>
+	<import file="${this.project.system.directory}/common/ant/build-targets.xml"/>
+
+	<!-- this import gives you targets: clean, build, test, javadoc, all -->
+	<import file="${this.project.system.directory}/common/ant/predefined-target-aliases.xml"/>
+	<!-- added for competition -->
+	<target name="update-public" depends="build" >
+		<copy file="${result.jar}" todir="${baseLibraryDir}/../public/system/environmentJars"/>
+	</target>
+	
+</project>
+

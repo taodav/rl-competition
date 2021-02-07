@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<project xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" name="GeneralizedTetris" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Tetris.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <property name="main.project.name" value="${ant.project.name}"/>
+    <property name="main.package.name" value="org.rlcommunity.environments.competition2009.Tetris/"/>
+    <property name="main.package.spec.version" value="1.0"/>
+    <property name="rlvizlib.jar" value="../../system/common/libs/rl-viz/RLVizLib.jar" />
+    <property name="jar.extra.classpath" value=""/>
+    <property name="jar.main.class" value=""/>
+    
+    <target name="get.rlvizlib.version">
+        <exec executable="java"
+              failifexecutionfails="no"
+              outputproperty="rlvizlib.spec.version">
+                    <arg value="-jar"/>
+                    <arg value="${rlvizlib.jar}"/>
+                    <arg value="--version"/>
+        </exec>
+        <!-- <echo>${rlvizlib.spec.version}</echo> -->
+    </target>
+
+    
+    <target depends="init,compile,get.rlvizlib.version,-pre-jar,-do-jar-with-manifest,-do-jar-without-manifest,-do-jar-with-mainclass,-do-jar-with-libraries,-post-jar" description="Build JAR." name="jar"/>
+ 
+    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="manifest.available+main.class" name="-do-jar-with-mainclass" unless="manifest.available+main.class+mkdist.available">
+        <j2seproject1:jar manifest="${manifest.file}">
+            <j2seproject1:manifest>
+                <j2seproject1:attribute name="Main-Class" value="${main.class}"/>
+                    <attribute name="RLVizLib-Link-Version" value="${rlvizlib.spec.version}"/>
+                    <attribute name="Class-Path" value="${jar.extra.classpath}" />
+
+		    <section name="${main.package.name}">
+		      <attribute name="Specification-Title" value="${main.project.name}"/>
+		      <attribute name="Specification-Version" value="${main.package.spec.version}"/>
+		      <attribute name="Specification-Vendor" value="RLAI"/>
+		      <attribute name="Implementation-Title" value="${main.project.name}"/>
+		      <attribute name="Implementation-Version" value="Build:${svn.revision.version}"/> 
+		      <attribute name="Implementation-Vendor" value="${main.vendor.name}"/>
+		    </section>            
+                </j2seproject1:manifest>
+        </j2seproject1:jar>
+        <echo>To run this application from the command line without Ant, try:</echo>
+        <property location="${build.classes.dir}" name="build.classes.dir.resolved"/>
+        <property location="${dist.jar}" name="dist.jar.resolved"/>
+        <pathconvert property="run.classpath.with.dist.jar">
+            <path path="${run.classpath}"/>
+            <map from="${build.classes.dir.resolved}" to="${dist.jar.resolved}"/>
+        </pathconvert>
+        <echo>java -cp "${run.classpath.with.dist.jar}" ${main.class}</echo>
+        <echo>Custom build successful.</echo>
+    </target>
+    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="manifest.available+main.class+mkdist.available" name="-do-jar-with-libraries">
+        <property location="${build.classes.dir}" name="build.classes.dir.resolved"/>
+        <pathconvert property="run.classpath.without.build.classes.dir">
+            <path path="${run.classpath}"/>
+            <map from="${build.classes.dir.resolved}" to=""/>
+        </pathconvert>
+        <pathconvert pathsep=" " property="jar.classpath">
+            <path path="${run.classpath.without.build.classes.dir}"/>
+            <chainedmapper>
+                <flattenmapper/>
+                <globmapper from="*" to="lib/*"/>
+            </chainedmapper>
+        </pathconvert>
+        <taskdef classname="org.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" classpath="${libs.CopyLibs.classpath}" name="copylibs"/>
+        <copylibs compress="${jar.compress}" jarfile="${dist.jar}" manifest="${manifest.file}" runtimeclasspath="${run.classpath.without.build.classes.dir}">
+            <fileset dir="${build.classes.dir}"/>
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path" value="${jar.classpath}"/>
+                    <attribute name="RLVizLib-Link-Version" value="${rlvizlib.spec.version}"/>
+
+		    <section name="${main.package.name}">
+		      <attribute name="Specification-Title" value="${main.project.name}"/>
+		      <attribute name="Specification-Version" value="${main.package.spec.version}"/>
+		      <attribute name="Specification-Vendor" value="RLAI"/>
+		      <attribute name="Implementation-Title" value="${main.project.name}"/>
+		      <attribute name="Implementation-Version" value="Build:${svn.revision.version}"/> 
+		      <attribute name="Implementation-Vendor" value="${main.vendor.name}"/>
+		    </section>            
+            </manifest>
+        </copylibs>
+        <echo>To run this application from the command line without Ant, try:</echo>
+        <property location="${dist.jar}" name="dist.jar.resolved"/>
+        <echo>java -jar "${dist.jar.resolved}"</echo>
+    </target>
+
+    <property name="baseLibraryDir" value="../.."/>
+    <target name="update-public" depends="jar" >
+        <copy file="${dist.jar}" todir="${baseLibraryDir}/../public/system/environmentJars"/>
+    </target>
+
+
+<!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="Tetris-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+</project>

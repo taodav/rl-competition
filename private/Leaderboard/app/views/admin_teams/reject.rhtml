@@ -1,0 +1,9 @@
+<% popup_form_for :team, :url => admin_team_path(@team), :html => { :method => 'delete'} do |f| -%>
+
+<p>
+	<label for="reason">Reason:</label><br />
+	<%= text_area_tag 'reason'%>
+</p>
+
+<p><%= submit_tag 'Reject team' %> <%= link_to_function "Cancel", 'window.close()' %></p>
+<% end -%>

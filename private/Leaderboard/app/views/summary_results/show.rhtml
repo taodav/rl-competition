@@ -1,0 +1,25 @@
+<div id="team_registration">
+<h1>RL-Competition Results</h1>
+
+<table>
+	<tr>
+		<th>Event</th>
+		<th>Number of MDP's</th>
+		<th>Episodes</th>
+		<th>Total Return</th>
+		<th>Total Steps</th>
+		<th>Date</th>
+	</tr>
+<% for key in @keys do %>
+	<% result = key.summary_result %>
+	<% next if result.nil? %>
+	<tr>
+		<td><%= result.team_key.event.name %></td>
+		<td><%= result.number_of_mdps %></td>
+		<td><%= result.episodes %></td>
+		<td><%= result.total_return %></td>
+		<td><%= result.total_steps %></td>
+		<td><%= link_to result.created_at, mdp_result_path(result.team_key.id) %></td>
+	</tr>
+<% end %>
+</table>

@@ -1,0 +1,108 @@
+<project name="Competition" basedir="." >
+
+	<property name="should.obfuscate.default" value="false" />
+	<property name="build.proving.jars.default" value="false" />
+	<property name="rlviz.dir" value="../public/system/libraries/rl-viz" />
+	<property name="rl.comp.library.dir" value="${basedir}/libraries"/>
+
+<!-- we need to add something for helicopter but it doesn't exist right now in my repo -->
+	<target name="clean" depends="clean-mc, clean-tetris"/>
+	<target name="clean-mc">
+		<ant antfile="build.xml" dir="environments/MountainCar" target="clean" />
+	</target>
+	<target name="clean-tetris" >
+		<ant antfile="build.xml" dir="environments/Tetrlais" target="clean" />
+	</target>
+	<target name="clean-proving" >
+		<ant antfile="build.xml" dir="Proving/" target="clean" />
+	</target>
+
+	<target name="clean-rl-viz">
+		<delete file="${rl.comp.library.dir}/RLVizLib.jar"  />
+	    <delete file="${rl.comp.library.dir}/EnvironmentShell.jar"  />
+	    <delete file="${rl.comp.library.dir}/AgentShell.jar"/>
+
+	    <delete file="${basedir}/../rl-competition/system/libraries/RLVizLib.jar"  />
+	    <delete file="${basedir}/../rl-competition/proving/bin/lib/RLVizLib.jar" />
+	    <delete file="${basedir}/../rl-competition/system/libraries/EnvironmentShell.jar"  />    
+	    <delete file="${basedir}/../rl-competition/system/libraries/AgentShell.jar" />
+	    <delete file="${basedir}/../rl-competition/system/libraries/RLVizApp.jar"  />    
+	</target>
+
+	<!-- BUILD RL-VIZ -->
+	<target name="build-rl-viz" depends="clean-rl-viz">
+<!--	Not actually going to "build" RLViz because it builds itself.  We don't really need externals to the whole project, just to the jars... going to fix that. 
+	<ant antfile="build.xml" dir="system/rl-viz" target="all" /> -->
+		<copy file="${rlviz.dir}/RLVizLib.jar" todir="${rl.comp.library.dir}" />
+	    <copy file="${rlviz.dir}/EnvironmentShell.jar" todir="${rl.comp.library.dir}" />
+	    <copy file="${rlviz.dir}/AgentShell.jar" todir="${rl.comp.library.dir}" />
+
+	    <copy file="${rlviz.dir}/RLVizLib.jar" todir="${basedir}/../rl-competition/system/libraries" />
+	    <copy file="${rlviz.dir}/RLVizLib.jar" todir="${basedir}/../rl-competition/proving/bin/lib" />
+	    <copy file="${rlviz.dir}/EnvironmentShell.jar" todir="${basedir}/../rl-competition/system/libraries" />    
+	    <copy file="${rlviz.dir}/AgentShell.jar" todir="${basedir}/../rl-competition/system/libraries" />
+	    <copy file="${rlviz.dir}/RLVizApp.jar" todir="${basedir}/../rl-competition/system/libraries" />    
+	</target>
+			
+	<!-- BUILD BASE MOUNTAINCAR -->	
+	<target name="build-base-mc" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/MountainCar" target="build-base" />
+	</target>
+	
+	<!-- BUILD BASE HELICOPTER -->	
+	<target name="build-base-helicopter" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/Helicopter" target="build-base" />
+	</target>
+
+	<!-- BUILD BASE TETRIS -->	
+	<target name="build-base-tetris" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/Tetrlais" target="build-base" />
+	</target>
+	
+	<!-- BUILD BASE SamplePolyathlon -->	
+	<target name="build-base-poly" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/SamplePolyathlon" target="build-base" />
+	</target>
+	
+	<!-- COMP BUILDS require rl-viz to be up to date, base builds do not -->
+	<!-- BUILD COMP MOUNTAINCAR -->	
+	<target name="build-comp-mc" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/MountainCar" target="build-comp" />
+	</target>
+	
+	<!-- BUILD COMP HELICOPTER -->	
+	<target name="build-comp-helicopter" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/Helicopter" target="build-comp" />
+	</target>
+
+	<!-- BUILD COMP TETRIS -->	
+	<target name="build-comp-tetris" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/Tetrlais" target="build-comp" />
+	</target>
+	
+	<!-- BUILD COMP SamplePolyathlon -->	
+	<target name="build-comp-poly" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/SamplePolyathlon" target="build-comp" />
+	</target>
+	<!-- Build RTS Visualizer -->
+	<target name="build-rts-viz" depends="build-rl-viz">
+		<ant antfile="build.xml" dir="environments/RealTimeStrategyVisualizer" />
+	</target>
+	
+	<!-- Competition related high level ant calls -->
+	<target name="build-base" depends="build-base-mc, build-base-helicopter, build-base-tetris,build-base-poly,build-genericvisualizer,build-rts-viz" />
+	<target name="build-comp" depends="build-comp-mc, build-comp-helicopter, build-comp-tetris,build-comp-poly,build-genericvisualizer,build-rts-viz" />
+		
+	<target name="build-proving">
+		<ant antfile="build.xml" dir="proving" target="clean"/>
+		<ant antfile="build.xml" dir="proving" target="jar"/>
+	</target>
+	
+	<target name="build-genericvisualizer">
+		<ant antfile="build.xml" dir="environments/GenericEnvVisualizer" target="clean"/>
+		<ant antfile="build.xml" dir="environments/GenericEnvVisualizer" target="jar"/>
+	</target>
+	
+	<target name="build-release" depends="build-rl-viz,build-comp,build-proving" />
+	
+</project>

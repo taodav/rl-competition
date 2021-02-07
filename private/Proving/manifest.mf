@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+X-COMMENT: Main-Class will be added automatically by build
+RLVizLib-Link-Version: 1.1
+
+Name: org/rlcommunity/competition/phoneHomeInterface/
+Specification-Title: Phone Home Interface
+Specification-Version: 1.1
+Specification-Vendor: RLAI
+Implementation-Title: Phone Home Interface
+Implementation-Version: 1.1
+Implementation-Vendor: Mark 
+
+Name: org/rlcommunity/competition/proving/
+Specification-Title: RL Competition Proving App
+Specification-Version: 1.1
+Specification-Vendor: RLAI
+Implementation-Title: RL Competition Proving App
+Implementation-Version: 1.1
+Implementation-Vendor: RL Comp Technical Committee

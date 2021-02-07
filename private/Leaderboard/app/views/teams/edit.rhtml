@@ -1,0 +1,21 @@
+<div id="team_registration">
+<%= error_messages_for :team %>
+Fields marked with (<span class="required">*</span>) are required.
+<% form_for :team, :url => team_path(@team), :html => { :method => 'put'} do |f| -%>
+<table>
+	<tr>
+		<td><label for="url">Team URL: </label></td>
+		<td><%= f.text_field :url %></td>
+		<td class="field_explanation">The location of a website for your team (optional)</td>
+	</tr>
+	
+</table>
+
+<div id="members">
+  <%= render :partial => 'member', :collection => @team.members %>
+</div>
+<p><%= add_member_link "Add a team member" %></p>
+
+<p><%= submit_tag 'Save changes' %> <%= link_to "Cancel", teams_path %></p>
+<% end -%>
+</div>

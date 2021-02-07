@@ -1,0 +1,43 @@
+<div id="team_registration">
+<h1>RL-Competition Teams</h1>
+<div style="text-align:right">
+	<%= pluralize(@teams.size, 'Registered Team') %>! (<%= pluralize(Member.count, 'Team Member') %>)
+</div>
+<% if team_logged_in? %>
+	<%= link_to image_tag("dlnow_blue.png", :border => 0), package_path(@package.revision) %><br />
+	<small>Revision <%= @package.revision %>, Released <%= @package.created_at %></small><br />
+	<%= link_to "Edit my team", edit_team_path(current_team) %><br />
+	<h5>View my Results:</h5>
+	<ul>
+		<% for event in @events %>
+			<li><%= link_to event.name, summary_result_path(event.id, current_team.id)%></li>
+		<% end %>
+	</ul>
+	<%= button_to "Logout", logout_url, :method => :delete %>
+<% else %>
+	<%= link_to "Sign up!", signup_url %> or 
+	<%= link_to "Login", login_url %>
+<% end %>
+
+	<% for team in @teams do %>
+			<dl class="team">
+				<dt class="team"><%= (team.url.nil? or team.url == '') ? team.title : link_to(team.title,team.url, :popup => true)%></dt>
+				<% if team.members.empty? %>
+					<dd class="team">None</dd>
+				<% else %>
+					<% for member in team.members do %>
+						<dd class="team">
+						<table>
+						<tr>
+							<td style="width: 125px"><%= member.name %></td>
+							<td style="width: 325px"><%= member.institution %></td>
+							<td style="width: 100px"><%= member.affiliation %></td>
+							<td style="width: 100px"><%= member.country %></td>
+						</tr>
+						</table>
+						</dd>
+					<% end %>
+				<% end %>
+			</dl>
+	<% end %>
+</div>

@@ -1,0 +1,31 @@
+<div id="team_registration">
+
+<% form_for :event, :url => events_path do |f| -%>
+	<p><label for="name">Name</label><br />
+	<%= f.text_field :name %></p>
+	
+	<p><label for="short_name">Short Name (Eg. "MC" or "T" as used in beginning of jar name)</label><br />
+	<%= f.text_field :short_name %></p>
+	
+	<p><label for="extension">File extension (Eg. "jar" or "txt")</label><br />
+	<%= f.text_field :extension %></p>
+
+	<p><label for="num_steps">Number of steps per mdp</label><br />
+	<%= f.text_field :num_steps %></p>
+	
+	<p><label for="keys_per_week">Number of keys allowed (per week)</label><br />
+	<%= f.text_field :keys_per_week %></p>
+
+	<p><label for="renew_weekly">Renew keys each week</label><br />
+	<%= f.check_box :renew_weekly, :attribute => true %></p>
+	
+	<p><label for="mdps_per_key">Number of mdps to run per key</label><br />
+	<%= f.text_field :mdps_per_key %></p>
+	
+	<p><label for="log_frequency">Log frequency (How often to log an episode. 1 is every episode, 2 is every other, etc.)</label><br />
+	<%= f.text_field :log_frequency %></p>
+
+	<p><%= submit_tag "Create Event"%>
+	<%= link_to "Cancel", events_path %></p>
+<% end %>
+</div>

@@ -1,0 +1,54 @@
+<div id="team_registration">
+<h1>RL-Competition Un-Verified Teams</h1>
+<%= render :partial => 'shared/admin_menu' %>
+The following teams have signed up, but have not yet been verified.<br />
+<ol>
+	<% for team in @teams do %>
+		<li>
+			<div class="admin_options">
+				<% if team.needs_change %>
+					This team has yet to make the changes requested.
+				<% end %>
+				<% form_for :team, :url => verify_admin_team_path(team), :html => { :method => 'put' } do |f| -%>
+					<%= submit_tag 'Verify' %><br />
+				<% end %>
+				<%= external_link_to "Request changes", request_changes_admin_team_path(team) %><br />
+				<%= external_link_to "Reject", reject_admin_team_path(team) %>
+			</div>
+			<h3><%= team.title%></h3>
+			<ul>
+				<li>URL: <%= team.url %></li>
+				<li>Members:
+				<% if team.members.empty? %>
+					None
+				<% else %>
+					<table>
+						<tr>
+							<th style="text-align:left">Name</th>
+							<th style="text-align:left">Email</th>
+							<th style="text-align:left">Institution</th>
+							<th style="text-align:left">Affiliation</th>
+							<th style="text-align:left">Country</th>
+						</tr>
+					<% for member in team.members do %>
+						<tr>
+							<td><%= member.name %></td>
+							<td><%= member.email %></td>
+							<td><%= member.institution %></td>
+							<td><%= member.affiliation %></td>
+							<td><%= member.country %></td>
+						</tr>
+					<% end %>
+					</table>
+				<% end %>
+				</li>
+			</ul>
+		</li>
+	<% end %>
+</ol>
+<div><h3>To delete a team, select the team from the following list, and click delete</h3>
+	<%= form_tag({ :action => 'delete_team' }) %>
+	<%= select(:team, :id, @all_teams)	%> 
+	<input name='commit' type='submit' value='Delete' onclick="return confirm('Are you sure?');"/>
+	<%= end_form_tag %>
+</div>

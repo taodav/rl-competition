@@ -1,0 +1,28 @@
+<div id="team_registration">
+<%= render :partial => 'shared/admin_menu' %>
+
+
+<% form_tag edit_available_keys_available_path do -%>
+
+	<p><label for="keys_available_event">Event</label>
+	<%= select("keys_available", "event", @events.collect {|e| [ e.name, e.id ] }) %></p>
+	
+	<p><label for="keys_available_team">Team</label>
+	<%= select("keys_available", "team", @teams.collect {|t| [ t.title, t.id ] }) %></p>
+
+	<p><%= submit_tag "Edit Keys Available"%>
+	<%= link_to "Cancel", admin_teams_path %></p>
+
+<% end %>
+
+<h2>Team/Events that are currently at a non-default setting (have used some keys)</h2>
+<table>
+<% for keys_available in @keys_availables do %>
+	<tr>
+		<td><%= keys_available.team.title %></td>
+		<td><%= keys_available.event.name %></td>
+		<td><%= keys_available.num %></td>
+	</tr>
+<% end %>
+</table>
+</div>

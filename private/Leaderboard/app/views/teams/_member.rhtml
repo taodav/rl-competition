@@ -1,0 +1,53 @@
+<div class="member">
+	<% @member = member %>
+	<%= error_messages_for :member %>
+<% fields_for "team[member_attributes][]", member do |member_form| %>
+	<% if member.is_leader == true %>
+		<% identifier = "Team Leader" %>
+	<% else %>
+		<% identifier = "Team Member" %>
+	<% end %>
+	<div class="member_heading">
+		<% if member.new_record? and member.is_leader != true %>
+			<%= link_to_function "remove", "$(this).up('.member').remove()" %>
+		<% elsif member.is_leader != true %>
+			<%= link_to_function "remove", "mark_for_destroy(this)" %>
+			<%= member_form.hidden_field :id, :index => nil %>
+			<%= member_form.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
+		<% else %>
+			<%= member_form.hidden_field :id, :index => nil %>
+		<% end %>
+		<h4><%= identifier %></h4>
+	</div>
+	<table>
+  	<tr>
+    	<td><label for="name">Name: <span class="required">*</span></label></td>
+			<td class="member_field"><%= member_form.text_field :name, :index => nil %></td>
+			<td class="field_explanation">First and last name (Eg. Bob Blah)</td>
+		</tr>
+		
+		<tr>
+			<td><label for="institution">Institution: <span class="required">*</span></label></td>
+			<td class="member_field"><%= member_form.text_field :institution, :index => nil %></td>
+			<td class="field_explanation">School, Company, etc. (Eg. University of Alberta, Google)</td>
+		</tr>
+
+		<tr>
+			<td><label for="affiliation">Affiliation: <span class="required">*</span></label></td>
+			<td class="member_field"><%= member_form.text_field :affiliation, :index => nil %></td>
+			<td class="field_explanation">Research lab, Supervisor, Class, etc. (Eg. RLAI, Peter Stone, csc 413)</td>
+		</tr>
+
+		<tr>
+			<td><label for="email">E-mail: <span class="required">*</span></label></td>
+			<td class="member_field"><%= member_form.text_field :email, :index => nil %></td>
+		</tr>
+	
+		<tr>
+			<td><label for="country">Country: <span class="required">*</span></label></td>
+			<td class="member_field"><%= member_form.country_select :country, ["Canada", "United States"], {},:index => '', :style => "width: 100%" %></td>
+		</tr>
+	</table>
+	<%= member_form.hidden_field :is_leader, :index => nil, :class => 'is_leader' %>
+<% end %>
+</div>

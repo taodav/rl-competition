@@ -1,0 +1,11 @@
+<div id="team_registration">
+<%= render :partial => 'shared/admin_menu' %>
+
+<h1>Events</h1>
+
+<% for event in @events do %>
+	<%= event.name %>/<%= event.short_name %> (<%= link_to "Edit", edit_event_path(event) %>)<br />
+<% end %>
+<br />
+<div><%= link_to "Create New Event", :action => :new %></div>
+</div>

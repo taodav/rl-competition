@@ -1,0 +1,18 @@
+package Octopus.environment;
+
+import Octopus.config.*;
+
+public class Constants {
+    
+    private static ConstantSet constants;
+    
+    public static void init(ConstantSet c) {
+        if (constants != null) {
+            throw new IllegalStateException("Constants may only be initialized once.");
+        }
+        
+        constants = c;
+    }
+    
+    public static ConstantSet get() { return constants; }
+}

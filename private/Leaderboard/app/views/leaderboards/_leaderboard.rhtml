@@ -1,0 +1,26 @@
+<table style="width: 650px;margin-left: auto; margin-right: auto;">
+<tr>
+	<td><h2><%= @event.name %> Leaderboard <%= "(Top #{@limit})" if !@limit.nil? %></h2></td>
+</tr>
+<tr>
+	<td>
+		<table>
+			<tr>
+				<th>Rank</th>
+				<th>Team</th>
+				<th>Score (<%= score_criteria(@event) %>)</th>
+				<th>Date Submitted</th>
+			</tr>
+		<% i = 1 %>
+		<% for max_score in @max_scores do %>
+			<tr>
+				<td><%= i %><% i = i + 1 %></td>
+				<td><%= max_score.team.title %></td>
+				<td><%= max_score.score%></td>
+				<td><%= max_score.summary_result.created_at %></td>
+			</tr>
+		<% end %>
+		</table>
+	</td>
+</tr>
+</table>

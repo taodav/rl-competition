@@ -1,0 +1,9 @@
+<% popup_form_for :team, :url => send_announcement_admin_teams_path, :html => { :method => 'put'} do |f| -%>
+
+<p>
+	<label for="announcement">Announcement:</label><br />
+	<%= text_area_tag 'announcement'%>
+</p>
+
+<p><%= submit_tag 'Send Announcement' %> <%= link_to_function "Cancel", 'window.close()' %></p>
+<% end -%>

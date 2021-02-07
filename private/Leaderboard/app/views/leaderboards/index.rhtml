@@ -1,0 +1,12 @@
+<div id="team_registration">
+<h1>RL-Competition Leaderboards</h1>
+<%= render :partial => 'shared/admin_menu' %>
+
+<ul>
+	<% for event in @events do %>
+		<li><%= link_to_remote event.name, :url => leaderboard_path(:id => event.id, :limit => 10), :update => 'leaderboard', :method => :get %></li>
+	<% end %>
+</ul>
+
+<div id="leaderboard">
+</div>

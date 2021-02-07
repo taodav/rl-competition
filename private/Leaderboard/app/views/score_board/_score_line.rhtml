@@ -1,0 +1,6 @@
+<tr id="score_<%= @event_id.to_i %>_<%= @pos+1 %>" style="display:none;">
+<td><center><%= @pos+1 %></center></td>
+<td><center><%= @score.team.title %></center></td>
+<td><center><%= @score.episode_num %>/100</center></td>
+<td><center><%= "%0.2f" % @score.score.to_f %></center></td>
+</tr>

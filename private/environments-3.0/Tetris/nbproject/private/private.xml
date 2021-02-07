@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/build.xml</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/build_by_brian.xml</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/nbproject/build-impl.xml</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/nbproject/project.properties</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/AgentThread.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/CalcScoreForParams.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/ConsoleTrainer.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/EnvThread.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/ExperimentDifferentAgents.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/RLGlueThread.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/VizThread.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/consoleTrainerHelper.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/TestExperiment/util/WeightFileToJava.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/org/rlcommunity/environments/competition2009/Tetris/DetailsProvider.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/org/rlcommunity/environments/competition2009/Tetris/GameState.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/org/rlcommunity/environments/competition2009/Tetris/Proving/TPMDP0.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/org/rlcommunity/environments/competition2009/Tetris/SimulatedTetrisGame.java</file>
+        <file>file:/C:/_szityu/projekt_x47_RL_competition/trunk/private/environments-3.0/Tetris/src/org/rlcommunity/environments/competition2009/Tetris/Tetris.java</file>
+    </open-files>
+</project-private>

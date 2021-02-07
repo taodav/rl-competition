@@ -1,0 +1,131 @@
+<project name="Helicopter" basedir="." >
+
+	<property name="baseCompDir" value="../.."/>
+	<property name="rl.comp.system.directory" value="${baseCompDir}/system"/>
+
+	<property name="project.type" value="environment" />
+	<property name="main.project.name" value="${ant.project.name}"/>
+	<property name="main.package.name" value="Helicopter/"/>
+	<property name="main.package.spec.version" value="1.1"/>
+	<property name="main.vendor.name" value="Brian and Matt"/>
+
+	<property name="project.has.viz" value="true" />
+	<property name="viz.project.name" value="${ant.project.name}Visualizer"/>
+	<property name="viz.package.name" value="visualizers/HelicopterVisualizer/"/>
+	<property name="viz.package.spec.version" value="1.0"/>
+	<property name="viz.vendor.name" value="Matt and Brian"/>
+	
+	<property name="comp.lib.dir" value="../../../rl-competition/system/libraries" />
+
+	<path id="project.extra.classpath" />
+	<import file="${rl.comp.system.directory}/build-common.xml"/>
+
+<!-- you can think of these as convenient aliases for the actual targets in build-targets.xml -->
+
+	<target name="clean" depends="rl-clean"/>
+
+	<target name="build-base" depends="rl-jar" >
+		<copy file="${main.result.jar}" tofile="JarWithAllClasses.jar"/>
+		<delete file="${main.result.jar}" />
+		<antcall target="build-basic-heli-by-deletion" />
+		
+		<antcall target="build-base-viz" />
+		
+		<delete>
+			<fileset dir="." includes="JarWithAllClasses.jar"/>
+		</delete>
+	</target>
+	
+	<target name="build-comp" depends="rl-jar" >
+		<copy file="${main.result.jar}" tofile="JarWithAllClasses.jar"/>
+		<delete file="${main.result.jar}" />
+		
+		<antcall target="obfuscate"></antcall>
+		
+		<antcall target="build-basic-heli-by-deletion" />
+		<antcall target="build-generalized-heli-by-deletion" />
+		<antcall target="build.proving.mdps" />
+		<antcall target="copy.proving.mdps.to.debug.location" />
+		
+		
+		
+		<antcall target="build-generalized-viz" />
+		
+		<delete>
+			<fileset dir="." includes="JarWithAllClasses.jar"/>
+		</delete>
+	</target>
+	
+	<target name="build-base-viz" depends="build-basic-heli-by-deletion" >
+		<copy file="${viz.result.jar}" tofile="VizJarWithAllClasses.jar"/>
+		<delete file="${viz.result.jar}" />
+		
+		<antcall target="pre-filter" />
+			<delete includeemptydirs="true">
+			    <fileset dir="tmp-unjar" includes="**/HPMDP*"/>
+			    <fileset dir="tmp-unjar" includes="**/GeneralizedHelicopter/*.class"/>
+			    <fileset dir="tmp-unjar" includes="**/Helicopter/**.class"/>
+			</delete>		
+			
+		<jar destfile="${viz.dist.dir}/HelicopterVisualizer.jar" basedir="tmp-unjar" manifest="tmp-unjar/META-INF/MANIFEST.MF"  />
+		<antcall target="post-filter" />
+		
+		<delete>
+			<fileset dir="." includes="VizJarWithAllClasses.jar"/>
+		</delete>
+	</target>
+	
+	<target name="build-generalized-viz" depends="build-base-viz" >
+		<copy file="${viz.dist.dir}/HelicopterVisualizer.jar" tofile="${comp.lib.dir}/GeneralizedHelicopterVisualizer.jar" />
+	</target>
+
+   	<target name="clean-build" depends="clean,rl-jar"/>
+
+	<target name="pre-filter">
+		<mkdir dir="tmp-unjar"/>
+		<unzip src="JarWithAllClasses.jar" dest="tmp-unjar"/>
+	</target>
+	
+	<target name="post-filter">
+		<delete dir="tmp-unjar"/>
+	</target>
+	
+	<target name="build-basic-heli-by-deletion">
+		<antcall target="pre-filter" />
+			<delete includeemptydirs="true">
+			    <fileset dir="tmp-unjar" includes="**/HPMDP*"/>
+			    <fileset dir="tmp-unjar" includes="**/GeneralizedHelicopter/*.class"/>
+			    <fileset dir="tmp-unjar" includes="**/GeneralizedHelicopter*"/>
+				<fileset dir="tmp-unjar" includes="**/visualizers/**" />
+			</delete>		
+			
+		<jar destfile="${main.dist.dir}/Helicopter.jar" basedir="tmp-unjar" manifest="tmp-unjar/META-INF/MANIFEST.MF"  />
+		<antcall target="post-filter" />
+	</target>
+	<target name="build-generalized-heli-by-deletion">
+		<antcall target="pre-filter" />
+			<delete includeemptydirs="true">
+			    <fileset dir="tmp-unjar" includes="**/HPMDP*"/>
+				<fileset dir="tmp-unjar" includes="**/visualizers/**" />
+			</delete>		
+			<jar destfile="${main.dist.dir}/GeneralizedHelicopter.jar" basedir="tmp-unjar" manifest="tmp-unjar/META-INF/MANIFEST.MF"  />
+			<copy file="${main.dist.dir}/GeneralizedHelicopter.jar" todir="${comp.lib.dir}" />
+			<antcall target="post-filter" />
+	</target>
+
+	<target name="copy.proving.mdps.to.debug.location" >
+	  <copy todir="${proving.jar.debug.dir}">
+	    <fileset dir="provingJars" includes="*.jar"/>
+	  </copy>
+	</target>
+
+	<target name="build.proving.mdps">
+		<mkdir dir="tmp-unjar"/>
+		<exec executable="${basedir}/makeJars.pl" />
+		<delete dir="tmp-unjar"/>
+	</target>
+	
+
+
+</project>
+

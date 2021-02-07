@@ -1,0 +1,12 @@
+<%=
+update_page do |page|
+            page << "$('episode_counter').value = '#{@episode+1}';"
+            page.replace_html "scores_cell_#{@event_id}", :partial => 'scores'
+            @scores.each_with_index do |score,index|
+                @pos = index
+                @score = score
+                page.insert_html :bottom, "scores_#{@event_id}", :partial => 'score_line', :object => score
+                page.visual_effect :appear, "score_#{@event_id}_#{index+1}"
+            end
+end
+%>

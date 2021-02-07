@@ -1,0 +1,82 @@
+<project name="PolyathlonFull" basedir="." >
+
+	<property name="baseLibraryDir" value="../.."/>
+	<property name="this.project.system.directory" value="${baseLibraryDir}/system"/>
+	<property name="project.name" value="${ant.project.name}"/>
+	<property name="this.project.product.directory" value="${baseLibraryDir}/products"/>
+	<import file="${this.project.system.directory}/common/ant/build-common.xml"/>
+
+	<property name="main.package.name" value="org.rlcommunity.environments.competition2009.polyathlon/"/>
+	<property name="main.package.spec.version" value="1.0"/>
+	<property name="main.vendor.name" value="Brian Tanner and Adam White"/>
+
+	<path id="project.extra.classpath" />
+	<import file="${this.project.system.directory}/common/ant/build-targets.xml"/>
+
+	<target name="clean" depends="rl-clean"/>
+	<target name="build" depends="rl-jar"/>
+	<target name="debug" depends="rl-set-debug,rl-jar"/>
+	<target name="test" depends="rl-test"/>
+	<target name="javadoc" depends="rl-javadoc"/>
+	<target name="clean-build" depends="clean, build"/>
+	<target name="all" depends="clean, build"/>
+
+
+	<!-- added for competition -->
+	<target name="update-public" depends="build" >
+    	<antcall target="pre-filter" />
+	    <delete includeemptydirs="true">
+		<!-- not really necessary, just being safe -->
+    		<fileset dir="tmp-unjar" includes="**/competition2009/polyathlon/testing/*.class"/>
+	    	<fileset dir="tmp-unjar" includes="**/competition2009/polyathlon/proving/*.class"/>
+            <fileset dir="tmp-unjar" includes="**/Proving2008/*.class"/>
+	    </delete>
+	    <jar destfile="products/Polyathlon.jar" basedir="tmp-unjar" manifest="tmp-unjar/META-INF/MANIFEST.MF" />
+	    <antcall target="post-filter" />
+		<copy file="products/Polyathlon.jar" todir="${baseLibraryDir}/../public/system/environmentJars"/>
+	</target>
+	
+	
+	<!-- added for competition -->
+	<target name="update-dev" depends="build" >
+		<copy file="${result.jar}" tofile="${baseLibraryDir}/../public/system/environmentJars/Polyathlon-Dev.jar"/>
+	</target>
+
+	<target name="build-proving-jar" depends="build">
+       <antcall target="pre-filter" />
+        <delete includeemptydirs="true">
+		<!-- not really necessary, just being safe -->
+        	<fileset dir="tmp-unjar" includes="**/testing/*.class"/>
+            <fileset dir="tmp-unjar" includes="**/Proving2008/*.class"/>
+            <fileset dir="tmp-unjar" includes="**/TrainingMDP*.class"/>
+        </delete>
+        <jar destfile="products/PolyathlonProving.jar" basedir="tmp-unjar" manifest="tmp-unjar/META-INF/MANIFEST.MF" />
+        <antcall target="post-filter" />
+    </target>
+
+	<target name="build-testing-jar" depends="build">
+       <antcall target="pre-filter" />
+        <delete includeemptydirs="true">
+		<!-- not really necessary, just being safe -->
+            <fileset dir="tmp-unjar" includes="**/proving/*.class"/>
+            <fileset dir="tmp-unjar" includes="**/Proving2008/*.class"/>
+            <fileset dir="tmp-unjar" includes="**/TrainingMDP*.class"/>
+        </delete>
+        <jar destfile="products/PolyathlonTesting.jar" basedir="tmp-unjar" manifest="tmp-unjar/META-INF/MANIFEST.MF" />
+        <antcall target="post-filter" />
+    </target>
+
+    
+	<!-- for unjarring, deleting, etc -->
+	<target name="pre-filter">
+        <mkdir dir="tmp-unjar"/>
+        <unzip src="${result.jar}" dest="tmp-unjar"/>
+    </target>
+
+    <target name="post-filter">
+        <delete dir="tmp-unjar"/>
+    </target>
+    
+	
+</project>
+

@@ -1,0 +1,11 @@
+<div id="team_registration">
+<h1>RL-Competition Package Downloads</h1>
+<%= render :partial => 'shared/admin_menu' %>
+
+<% for team in @teams do %>
+	<% if team.downloads.empty? %>
+		<%= team.title %>: No downloads<br />
+	<% else %>
+		<%= team.title %>: <% for download in team.downloads do %> Revision <%= download.revision %>,<% end %><br />
+	<% end %>
+<% end %>

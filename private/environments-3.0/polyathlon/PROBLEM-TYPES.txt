@@ -1,0 +1,66 @@
+2009 Polyathlon Problem Types
+-------------------------------
+Problem Type A : Mountain Car
+Problem Type B : Continuous Grid World 
+Problem Type C : Acrobot
+Problem Type D : A simple Bandit Problem with fixed means and variances, Gaussian samples.  Observations always 0.
+Problem Type E : More complicated Bandit that uses the observations to generate rewards
+Problem Type F : Continuous Grid World Cat/Mouse
+Problem Type G : Cart-Pole
+Problem Type H : Cart-Pole Swing Up
+
+Training MDPS
+0 : D - Simple Bandit - Good splits uniform variance
+1 : F - Cat Policy 1
+2 : A - Lots of warping
+3 : A - Nice : Basically standard mountain car
+4 : F - Cat Policy 3
+5 : D - Good splits different variance
+
+
+Proving MDPs
+1	:	C //Broken -- forgot to give them 1 important dim
+2	:	F
+3	:	B
+4	:	A
+5	:	D
+6	:	A
+7	:	A
+8	:	D
+9	:	B
+10	:	A
+11	:	F
+12	:	C
+13	:	E
+
+Testing MDPs
+1	: 	G
+2	:	F (Proving 11)
+3	:	B (Proving 3)
+4	:	D (Proving 8)
+5	:	A (Proving 6)
+6	:	H
+7	:	C (Proving 1)//Fixed
+8	:	A (Proving 4)
+9	:	C (Proving 12)
+10	:	D (Proving 5) [change vars]
+11	:	F (Proving 2)
+12	:	E (Proving 13)
+13	:	B (Proving 9)
+14	:	A (proving 10)
+15	:	A (Proving 7) 
+16	:	E
+17	:	G
+18	:	H
+19	:	F (Cat-Mouse Attacker Policy 2)
+20	:	C
+Tallies:
+A	4
+B	2
+C	3
+D	2
+E	2
+F	3
+G	2
+H	2
+	20

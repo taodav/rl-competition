@@ -1,0 +1,46 @@
+<div id="team_registration">
+<h1>Team Registration</h1>
+
+<%= error_messages_for :team %>
+<p>This information (except for e-mail addresses) will be publicly displayed on the competition website.</p>
+Fields marked with (<span class="required">*</span>) are required.
+<% form_for :team, :url => teams_path do |f| -%>
+<table>
+	<tr>
+		<td><label for="title">Team title: <span class="required">*</span></label></td>
+		<td><%= f.text_field :title %></td>
+		<td class="field_explanation">The name of your team (Eg. Ualberta RLAI)</td>
+	</tr>
+
+	<tr>
+		<td><label for="login">Team Login: <span class="required">*</span></label></td>
+		<td><%= f.text_field :login %></td>
+		<td class="field_explanation">A short login name (Eg. rlai)</td>
+	</tr>
+
+	<tr>
+		<td><label for="url">Team URL: </label></td>
+		<td><%= f.text_field :url %></td>
+		<td class="field_explanation">The location of a website for your team (optional)</td>
+	</tr>
+
+	<tr>
+		<td><label for="password">Team Password: <span class="required">*</span></label></td>
+		<td><%= f.password_field :password %></td>
+	</tr>
+
+	<tr>
+		<td><label for="password_confirmation">Confirm Password: <span class="required">*</span></label></td>
+		<td><%= f.password_field :password_confirmation %></td>
+	</tr>
+	
+</table>
+
+<div id="members">
+  <%= render :partial => 'member', :collection => @team.members %>
+</div>
+<p><%= add_member_link "Add a team member" %></p>
+
+<p style="text-align:right;padding-right: 50px;"><%= submit_tag 'Register Team Now' %> <%= link_to "Cancel", teams_path %></p>
+<% end -%>
+</div>

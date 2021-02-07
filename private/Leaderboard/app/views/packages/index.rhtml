@@ -1,0 +1,9 @@
+<div id="team_registration">
+<h1>Packages</h1>
+<%= render :partial => 'shared/admin_menu' %>
+
+<%= link_to "New package", new_package_path %><br />
+<% for package in @packages do %>
+	<%= package.revision%><br />
+<% end %>
+</div>

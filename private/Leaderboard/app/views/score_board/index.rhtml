@@ -1,0 +1,169 @@
+<style type="text/css">
+.spacer { height: 1024px; }
+#scores { width: 100%; color: #ed0; }
+table.fw { table-layout: fixed;}
+.tscoreboard { width: 900px; border: 0; margin: 0; padding: 0px; background: white; table-layout: fixed; }
+.tscoreboard tr {padding: 0; margin: 0; border: 0}
+.tscoreboard td {padding: 3px; margin: 0; border: 0}
+.tscoreboard .clear { background: transparent; width: 160px;}
+.tscoreboard .left { border: 1pt solid black; width: 160px; background: white; text-align: center; }
+.tscoreboard .right { border: 1pt solid black; width: 160px; background: white; }
+.tscoreboard .top { border: 1pt solid black; background: white; text-align: center; color: blue; font-family: Georgia, "Times New Roman", serif; font-size: 24pt; }
+.tscoreboard .scores { border: 3pt solid #111;  width: 580px; background:#222; color: #cd0; vertical-align: top; }
+.tscoreboard img { padding: 3px; }
+</style>
+<script type="text/javascript">
+var total_time = 600; // Total time in seconds.
+var total_episodes = 100; // Number of episodes to scan through.
+var num_events = 6;
+var steps = total_episodes * num_events;
+var tts = total_time / steps; // Time per steps, in seconds.
+
+function update_event(event_id, ep_num) {
+	window.location.hash= "EVENT_"+event_id;
+	new Ajax.Request('/score_board/show',
+			{asynchronous:true, 
+				evalScripts:true, 
+				onComplete:function(request){eval(request.responseText);}, 
+				parameters:{event: event_id, episode: ep_num}});
+	return false;
+}
+function do_update(event_id, ep_num) {
+	update_event(event_id+7, ep_num);
+	next_event = event_id+1;
+	next_ep = ep_num;
+	if (next_event >= num_events) {
+		next_event = 0;
+		next_ep = ep_num+1;
+	}
+	if (next_ep <= total_episodes) {
+		setTimeout("do_update("+next_event+","+next_ep+");",tts*1000);
+	}
+}
+do_update(0,1);
+</script>
+
+<div id='scoreboard'>
+<!--  HELICOPTER  -->
+<a name="EVENT_7"></a>
+<table class='tscoreboard'>
+<tr><td class='clear'>&nbsp;</td>
+    <td class='top'>Helicopter</td>
+    <td class='clear'>&nbsp;</td></tr>
+<tr><td class='left'>
+		<img src="/images/aimlrgb.jpg" width="150" />	
+		<br /><hr /><br />
+		<img src="/images/rlai.jpg" width="150" />
+	</td>
+    <td id="scores_cell_7" class='scores'>&nbsp;</td>
+    <td class='right'>
+		<img src="/images/toyota_logo_small.png" width="150"><br /><center><font color="red">Toyota Research Institute<br/>North America</font></center>
+	</td></tr>
+</table>
+<div class="spacer">&nbsp;</div>
+
+<!--  MOUNTAIN CAR  -->
+<a name="EVENT_8"></a>
+<table class='tscoreboard'>
+<tr><td class='clear'>&nbsp;</td>
+    <td class='top'>Mountain Car</td>
+    <td class='clear'>&nbsp;</td></tr>
+<tr><td class='left'>
+		<img src="/images/aimlrgb.jpg" width="150" />	
+		<br /><hr /><br />
+		<img src="/images/rlai.jpg" width="150" />
+	</td>
+    <td id="scores_cell_8" class='scores'>&nbsp;</td>
+    <td class='right'>
+		<img src="/images/toyota_logo_small.png" width="150"><br /><center><font color="red">Toyota Research Institute<br/>North America</font></center>
+	</td></tr>
+</table>
+<div class="spacer">&nbsp;</div>
+
+<!--  TETRIS  -->
+<a name="EVENT_9"></a>
+<table class='tscoreboard'>
+<tr><td class='clear'>&nbsp;</td>
+    <td class='top'>Tetris</td>
+    <td class='clear'>&nbsp;</td></tr>
+<tr><td class='left'>
+		<img src="/images/aimlrgb.jpg" width="150" />	
+		<br /><hr /><br />
+		<img src="/images/rlai.jpg" width="150" />
+	</td>
+    <td id="scores_cell_9" class='scores'>&nbsp;</td>
+    <td class='right'>
+		<img src="/images/toyota_logo_small.png" width="150"><br /><center><font color="red">Toyota Research Institute<br/>North America</font></center>
+	</td></tr>
+</table>
+<div class="spacer">&nbsp;</div>
+
+<!--  RTS  -->
+<a name="EVENT_10"></a>
+<table class='tscoreboard'>
+<tr><td class='clear'>&nbsp;</td>
+    <td class='top'>Real Time Strategy</td>
+    <td class='clear'>&nbsp;</td></tr>
+<tr><td class='left'>
+		<img src="/images/aimlrgb.jpg" width="150" />	
+		<br /><hr /><br />
+		<img src="/images/rlai.jpg" width="150" />
+	</td>
+    <td id="scores_cell_10" class='scores'>&nbsp;</td>
+    <td class='right'>
+		<img src="/images/toyota_logo_small.png" width="150"><br /><center><font color="red">Toyota Research Institute<br/>North America</font></center>
+	</td></tr>
+</table>
+<div class="spacer">&nbsp;</div>
+
+<!--  POLYATHALON  -->
+<a name="EVENT_11"></a>
+<table class='tscoreboard'>
+<tr><td class='clear'>&nbsp;</td>
+    <td class='top'>Polyathalon</td>
+    <td class='clear'>&nbsp;</td></tr>
+<tr><td class='left'>
+		<img src="/images/aimlrgb.jpg" width="150" />	
+		<br /><hr /><br />
+		<img src="/images/rlai.jpg" width="150" />
+	</td>
+    <td id="scores_cell_11" class='scores'>&nbsp;</td>
+    <td class='right'>
+		<img src="/images/toyota_logo_small.png" width="150"><br /><center><font color="red">Toyota Research Institute<br/>North America</font></center>
+	</td></tr>
+</table>
+<div class="spacer">&nbsp;</div>
+
+<!--  KEEPAWAY  -->
+<a name="EVENT_12"></a>
+<table class='tscoreboard'>
+<tr><td class='clear'>&nbsp;</td>
+    <td class='top'>Keepaway</td>
+    <td class='clear'>&nbsp;</td></tr>
+<tr><td class='left'>
+		<img src="/images/aimlrgb.jpg" width="150" />	
+		<br /><hr /><br />
+		<img src="/images/rlai.jpg" width="150" />
+	</td>
+    <td id="scores_cell_12" class='scores'>&nbsp;</td>
+    <td class='right'>
+		<img src="/images/toyota_logo_small.png" width="150"><br /><center><font color="red">Toyota Research Institute<br/>North America</font></center>
+	</td></tr>
+</table>
+<div class="spacer">&nbsp;</div>
+
+</div>
+<% form_remote_tag :url => { :action => :show },
+                   :complete => evaluate_remote_response() do%>
+<input type="hidden" id="episode_counter" name="episode" value="1"/>
+<select id="event" name="event">
+  <% for event in @events do 
+		if event.id > 6 %>
+	<option value="<%= event.id %>"><%= event.name %></option>
+  <% 	end
+	end %>
+</select>
+&nbsp;<%= submit_tag 'Show' %>
+&nbsp;<%= button_to_function "Reset", "$('episode_counter').value = '1';" %>
+<% end %>
+<div id='score_results'></div>

@@ -1,0 +1,80 @@
+<project name="Competition" basedir="." >
+
+	<property name="rlviz.dir" value="../public/system/libraries/rl-viz" />
+	<property name="rl.comp.library.dir" value="${basedir}/libraries"/>
+
+<!-- we need to add something for helicopter but it doesn't exist right now in my repo -->
+	<target name="clean" depends="clean-acrobot,clean-mario,clean-helicopter,clean-polyathlon,clean-octopus,clean-visualizer"/>
+	<target name="clean-acrobot">
+		<ant antfile="build.xml" dir="environments-3.0/acrobot" target="clean" />
+	</target>
+	<target name="clean-mario">
+		<ant antfile="build.xml" dir="environments-3.0/mario" target="clean" />
+	</target>
+	<target name="clean-helicopter">
+		<ant antfile="build.xml" dir="environments-3.0/helicopter" target="clean" />
+	</target>
+	<target name="clean-polyathlon" >
+		<ant antfile="build.xml" dir="environments-3.0/polyathlon" target="clean" />
+	</target>
+	<target name="clean-octopus" >
+		<ant antfile="build.xml" dir="environments-3.0/octopus" target="clean" />
+	</target>
+	<target name="clean-tetris" >
+		<ant antfile="build.xml" dir="environments-3.0/Tetris" target="clean" />
+	</target>
+	<target name="clean-visualizer" >
+		<ant antfile="build.xml" dir="environments-3.0/GenericVisualizer" target="clean" />
+	</target>
+			
+	<!-- BUILD BASE Acrobot -->	
+	<target name="build-base-acrobot" >
+		<ant antfile="build.xml" dir="environments-3.0/acrobot" target="build" />
+	</target>
+	<target name="build-base-mario" >
+		<ant antfile="build.xml" dir="environments-3.0/mario" target="build" />
+	</target>
+	<target name="build-base-helicopter" >
+		<ant antfile="build.xml" dir="environments-3.0/helicopter" target="build" />
+	</target>
+	<target name="build-base-polyathlon" >
+		<ant antfile="build.xml" dir="environments-3.0/polyathlon" target="build" />
+	</target>
+	<target name="build-base-octopus" >
+		<ant antfile="build.xml" dir="environments-3.0/octopus" target="build" />
+	</target>
+	<target name="build-base-tetris" >
+		<ant antfile="build.xml" dir="environments-3.0/Tetris" target="build" />
+	</target>
+        <target name="build-base-visualizer" >
+		<ant antfile="build.xml" dir="environments-3.0/GenericVisualizer" target="build" />
+	</target>
+
+	<!-- BUILD BASE Acrobot AND Update Public-->	
+	<target name="build-public-acrobot" >
+		<ant antfile="build.xml" dir="environments-3.0/acrobot" target="update-public" />
+	</target>
+	<target name="build-public-mario" >
+		<ant antfile="build.xml" dir="environments-3.0/mario" target="update-public" />
+	</target>
+	<target name="build-public-helicopter" >
+		<ant antfile="build.xml" dir="environments-3.0/helicopter" target="update-public" />
+	</target>
+	<target name="build-public-polyathlon" >
+		<ant antfile="build.xml" dir="environments-3.0/polyathlon" target="update-public" />
+	</target>
+	<target name="build-public-octopus" >
+		<ant antfile="build.xml" dir="environments-3.0/octopus" target="update-public" />
+	</target>
+	<target name="build-public-tetris" >
+		<ant antfile="build.xml" dir="environments-3.0/Tetris" target="update-public" />
+	</target>
+	<target name="build-public-visualizer" >
+		<ant antfile="build.xml" dir="environments-3.0/GenericVisualizer" target="update-public" />
+	</target>
+
+	<!-- Competition related high level ant calls ... can call lots of different things in depends-->
+	<target name="build-base" depends="build-base-acrobot,build-base-mario,build-base-helicopter,build-base-polyathlon,build-base-octopus,build-base-tetris,build-base-visualizer" />
+	<target name="build-public" depends="build-public-acrobot,build-public-mario,build-public-helicopter,build-public-polyathlon,build-public-octopus,build-public-tetris,build-public-visualizer" />
+	
+</project>

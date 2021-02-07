@@ -1,0 +1,26 @@
+<div id="team_registration">
+<h1>RL-Competition Results</h1>
+<%= render :partial => 'shared/admin_menu' %>
+
+<table>
+	<tr>
+		<th>Team</th>
+		<th>Event</th>
+		<th>MDP ID</th>
+		<th>Episodes</th>
+		<th>Total Return</th>
+		<th>Total Steps</th>
+		<th>Date</th>
+	</tr>
+<% for result in @mdp_results do %>
+	<tr>
+		<td><%= result.team_key.team.title %></td>
+		<td><%= result.team_key.event.name %></td>
+		<td><%= result.mdp_id %></td>
+		<td><%= result.episodes %></td>
+		<td><%= result.total_return %></td>
+		<td><%= result.total_steps %></td>
+		<td><%= result.created_at %></td>
+	</tr>
+<% end %>
+</table>

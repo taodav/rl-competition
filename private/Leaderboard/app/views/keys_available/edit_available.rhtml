@@ -1,0 +1,15 @@
+<div id="team_registration">
+<% if !@keys_available.nil? %>
+<h1><%= @keys_available.team.title %>/<%= @keys_available.event.name%> Keys Available</h1>
+
+<% form_for :keys_available, :url => keys_available_path(@keys_available), :html => {:method => :put} do |f| -%>
+	<p><label for="num">Number of keys allowed<% if @keys_available.event.renew_weekly %>&nbsp;this week<% end %></label><br />
+	<%= f.text_field :num %></p>
+	
+	<p><%= submit_tag "Update Keys Available"%>
+	<%= link_to "Cancel", search_keys_available_path %></p>
+	<% end %>
+<% else %>
+<h1><%= @team.title %> is not verified, and has no keys.</h1>
+
+<% end %>

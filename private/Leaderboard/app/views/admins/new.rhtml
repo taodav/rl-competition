@@ -1,0 +1,21 @@
+<div id="team_registration">
+<%= error_messages_for :admin %>
+<% form_for :admin, :url => admins_path do |f| -%>
+<p><label for="login">Login</label><br/>
+<%= f.text_field :login %></p>
+
+<p><label for="email">Email</label><br/>
+<%= f.text_field :email %></p>
+
+<p><label for="password">Password</label><br/>
+<%= f.password_field :password %></p>
+
+<p><label for="password_confirmation">Confirm Password</label><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p>
+	<%= submit_tag 'Sign up' %>
+	<%= link_to "Cancel", admin_teams_path %>
+</p>
+<% end -%>
+</div>

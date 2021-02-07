@@ -1,0 +1,1 @@
+LOAD DATA INFILE '/tmp/results.csv' INTO TABLE score_board_results FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n'  (@teamid, @evtid, episode_num, score, steps) SET team_id = (SELECT id FROM teams WHERE login=@teamid), event_id=(@evtid+1), created_at = NOW(), finished_at = NOW();

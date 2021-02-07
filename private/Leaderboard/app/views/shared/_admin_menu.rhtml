@@ -1,0 +1,12 @@
+<ul>
+	<li><%= link_to "Unverified Teams", admin_teams_path %></li>
+	<li><%= link_to "Downloads", downloads_path %></li>
+	<li><%= link_to "Create new administrator", new_admin_path %></li>
+	<li><%= external_link_to "Send announcement to all teams", announce_admin_teams_path %></li>
+	<li><%= link_to "Packages", packages_path %></li>
+	<li><%= link_to "Events", events_path %></li>
+	<li><%= link_to "Results", all_summary_results_path %></li>
+	<li><%= link_to "Leaderboards", leaderboards_path %></li>
+	<li><%= link_to "Keys available", search_keys_available_path %></li>
+	<li><%= button_to "Logout", admin_session_path, :method => :delete %></li>
+</ul>
